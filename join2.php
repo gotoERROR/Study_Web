@@ -2,7 +2,7 @@
 	include "./config/dbconn.php";
 	mysql_query("set names utf8");
 	
-	$id = $_POST['id'];		
+	$id = $_POST['id'];			
 	$pw1 = $_POST['pw1'];	
 	$pw2 = $_POST['pw2'];	
 	$email = $_POST['email'];
@@ -16,30 +16,53 @@
 	$hab3 = $_POST['hab3'];
 	$hab4 = $_POST['hab4'];
 	
-	$sql = "insert into member_info (m2_id, m2_pwd, m2_pwd2, m2_email, m2_tel, m2_url, m2_gender, m2_year, m2_photo, m2_hab1, m2_hab2, m2_hab3, m2_hab4)";
-	$sql .= " values ('$id','$pw1','$pw2','$email','$tel','$url','$gender','$year','$photo','$hab1','$hab2','$hab3','$hab4')";
+	$sql = "select count(m2_id) as same_record_no";
+	$sql .= " from member_info";
+	$sql .= " where m2_id = '$id' limit 1";
 	
-	echo "*sql : " . $sql . "<br>";
 	$result = mysql_query($sql);
 	
-	if (!$result)
+	if ($result)
 	{
-		$msg = "DB에 데이터 입력 오류 !!!";
-		echo ("<script>
+		
+		$row = mysql_fetch_object($result);
+		$no = $row -> same_record_no;
+		if ($no>0)
+		{
+			$msg = "중복된 아이디 !!!";
+			echo "<script>
 					alert('$msg');
 					history.back();
-				</script>");
-	}
-	else
-	{
-		$_SESSION['ss_user_id'] = $id;
-		$_SESSION['ss_user_pwd'] = $pwd;
-		$msg = "[" . $id . "님] 저장 완료";
-		$page = "./join2.php";
-		echo ("<script>
-					alert('$msg');
-				</script>");
-		echo ("parent.location.replace('$page');");
+				</script>";
+		}
+		else
+		{			
+			$sql = "insert into member_info (m2_id, m2_pwd, m2_pwd2, m2_email, m2_tel, m2_url, m2_gender, m2_year, m2_photo, m2_hab1, m2_hab2, m2_hab3, m2_hab4)";
+			$sql .= " values ('$id','$pw1','$pw2','$email','$tel','$url','$gender','$year','$photo','$hab1','$hab2','$hab3','$hab4')";
+	
+			echo "*sql : " . $sql . "<br>";
+			$result = mysql_query($sql);
+		
+			if (!$result)
+			{
+				$msg = "DB에 데이터 입력 오류 !!!";
+				echo ("<script>
+							alert('$msg');
+							history.back();
+						</script>");
+			}
+			else
+			{
+				$_SESSION['ss_user_id'] = $id;
+				$_SESSION['ss_user_pwd'] = $pwd;
+				$msg = "[" . $id . "님] 저장 완료";
+				$page = "./join2.php";
+				echo ("<script>
+							alert('$msg');
+						</script>");
+				echo ("parent.location.replace('$page');");
+			}
+		}		
 	}
 ?>
 <!DOCTYPE HTML>
