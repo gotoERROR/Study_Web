@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>무제 문서</title>
+		<link type="text/css" rel="stylesheet" href=".\css\first.css";>
+        <style>
+			table {background-image:url(img/first.jpg);}
+        	th {color:#1155FF;font-size:12px;}
+			td {color:#FFFFFF;font-size:16px;}
+			input[type="submit"] {background-image:url(img/fox.jpg);}
+			input[type="reset"] {background-image:url(img/hana.jpg);}
+        </style>
+        <script>
+			function chkSignin()
+			{
+				var id = document.getElementById("id");
+				if (id.value.length <= 8)
+				{
+					alert("아이디가 짧습니다.");
+					return false;
+				}
+				var pw1 = document.getElementById("pw1");
+				var pw2 = document.getElementById("pw2");
+				if (pw1.value != pw2.value)
+				{
+					alert("비밀번호가 다릅니다.");
+					return false;
+				}
+				if (birth.value >= 2000)
+				{
+					alert("2000년 이후 출생자는 가입불가");	
+					return false;
+				}
+				document.signin.submit();
+			}
+		</script>
+	</head>
+ 
+	<body> 
+       	<form id="signin" action="subscribe.php" method="post" name="frm_name">
+        	<table width="85%" border="1">
+  <caption>
+    회원가입
+  </caption>
+  <tr>
+    <th scope="row">아이디</th>
+    <td><input type="text" id="id" name="id" placeholder="영어 숫자 특수문자 모두 포함하여 8자이상" /></td>
+  </tr>
+  <tr>
+    <th scope="row">비밀번호</th>
+    <td><input type="password" id="pw1" name="pw1" /></td>
+  </tr>
+  <tr>
+    <th scope="row">비밀번호 확인</th>
+    <td><input type="password" id="pw2" name="pw2" /></td>
+  </tr>
+  <tr>
+    <th scope="row">Email</th>
+    <td><input type="email" name="email" /></td>
+  </tr>
+  <tr>
+    <th scope="row">휴대폰번호</th>
+    <td><input type="tel" name="tel" placeholder="01012345678"/></td>
+  </tr>
+  <tr>
+    <th scope="row">홈페이지</th>
+    <td><input type="url" name="url" /></td>
+  </tr>
+  <tr>
+    <th scope="row">성별</th>
+    <td><input type="radio" name="gender" value="M"/> 남
+    	<input type="radio" name="gender" value="F"/> 여
+        <input type="radio" name="gender" value="E"/> 기타
+    </td>
+  </tr>
+  <tr>
+    <th scope="row">출생년도</th>
+    <td><select id="birth" name="year">
+    		<option value="2016" selected/>2016
+            <option value="2015"/>2015
+            <option value="2014"/>2014
+            <option value="2013"/>2013
+            <option value="2012"/>2012
+            <option value="2011"/>2011
+            <option value="2010"/>2010
+            <option value="2009"/>2009
+            <option value="2008"/>2008
+            <option value="2007"/>2007
+            <option value="2006"/>2006
+            <option value="1000"/>1000
+            <option value="1500"/>1500
+            <option value="1999"/>1999
+    	</select>
+    </td>
+  </tr>
+  <tr>
+    <th scope="row">사진</th>
+    <td><input type="file" accept="img/first.jpg" name="photo"></td>
+  </tr>
+  <tr>
+    <th scope="row">취미</th>
+    <td>
+    <input type="checkbox" name="hab1" value="등산">등산
+    <input type="checkbox" name="hab2" value="낚시">낚시
+    <input type="checkbox" name="hab3" value="테니스">테니스
+    <input type="checkbox" name="hab4" value="골프">골프
+	</td>
+  </tr>
+</table>
+			<input type="submit" onClick="return chkSignin()" value="가입하기"/>
+            <input type="reset" value="양식초기화"/>
+        </form>
+
+	</body>
+</html>
