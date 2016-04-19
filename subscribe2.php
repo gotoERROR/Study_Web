@@ -56,11 +56,11 @@
 				$_SESSION['ss_user_id'] = $id;
 				$_SESSION['ss_user_pwd'] = $pwd;
 				$msg = "[" . $id . "님] 저장 완료";
-				$page = "./join2.php";
+				$page = "./join2.html";
 				echo ("<script>
 							alert('$msg');
 						</script>");
-				echo ("parent.location.replace('$page');");
+				echo ("<script>parent.location.replace('$page');</script>");
 			}
 		}		
 	}
