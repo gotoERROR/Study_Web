@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{
+	font-family:"맑은 고딕";
+}
+
+body{
+	margin:0px;
+	padding:0px;
+	height:100%;
+	width:100%;
+	background-color:#E0F7FA;
+}
+div{
+	overflow:visible;
+}
+iframe{
+	overflow:visible;
+}
