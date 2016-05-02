@@ -31,6 +31,15 @@
 		else if ($email != $same_email) { echo "<script> alert('등록되지 않은 이메일 입니다.'); </script>";}
 		else if ($pw != $same_pw) {	echo "<script> alert('비밀번호가 틀렸습니다.'); </script>";}
 	} else if ($email != NULL && $btn == "up"){
+		include "./config/dbconn.php";	
+		mysql_query("set names utf8");
+		
+		$sql = "insert into member ( m_email, m_pw, m_name )";
+		$sql .= " values( '$email', '$pw', '$name' )";
+		
+		mysql_query($sql);
+		
+		echo "<script> alert('가입 완료!'); </script>";
 	}
 ?>
 <!DOCTYPE HTML>
