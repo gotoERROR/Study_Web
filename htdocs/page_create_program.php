@@ -31,14 +31,14 @@
 		$meetingpointmap = $_POST['meetingpointmap'];
 		$finishpoint = $_POST['finishpoint'];
 		$authorno = $_POST['authorno'];
-		$authorporfileno = $_POST['authorporfileno'];
+		$authorprofileno = $_POST['authorprofileno'];
 		$explanation = $_POST['explanation'];
 		$itinery = $_POST['itinery'];
 		$characteristics = $_POST['characteristics'];
 		$option = $_POST['option'];
 		$included = $_POST['included'];
-		$excluede = $_POST['excluede'];
-		$preparaton = $_POST['preparaton'];
+		$excluded = $_POST['excluded'];
+		$preparation = $_POST['preparation'];
 		$notice = $_POST['notice'];
 		$evaluationvalue = $_POST['evaluationvalue'];
 		$evaluationno = $_POST['evaluationno'];
@@ -57,9 +57,9 @@
 					'$city','$town','$air','$hotel','$vehicle',
 					'$durationtype','$price','$price2','$price3','$currency',
 					'$priceunit','$minpeopleno','$maxpeopleno','$appliedno','$meetingpoint',
-					'$finishpoint','$authorno','$authorporfileno','$explanation','$explanation',
-					'$itinery','$characteristics','$option','$included','$excluede',
-					'$preparaton','$notice','$evaluationvalue','$evaluationno'";
+					'$meetingpointmap','$finishpoint','$authorno','$authorprofileno','$explanation',
+					'$itinery','$characteristics','$option','$included','$excluded',
+					'$preparation','$notice','$evaluationvalue','$evaluationno'";
 		
 		$sql = "insert into program ( ". $insert ." )";
 		$sql .= " values ( " . $value . " )";
@@ -164,7 +164,7 @@
   		</tr>
   		<tr>
     		<th scope="row">기본가격1</th>
-    		<td><input type="text" name="price1" /></td>
+    		<td><input type="text" name="price" /></td>
   		</tr>
   		<tr>
     		<th scope="row">특별가격2</th>
@@ -216,7 +216,7 @@
   		</tr>
   		<tr>
    		<th scope="row">프로그램 소개 파일명</th>
-    		<td><input type="text" name="explanatino" /></td>
+    		<td><input type="text" name="explanation" /></td>
   		</tr>
   		<tr>
     		<th scope="row">일정표</th>
@@ -236,7 +236,7 @@
   		</tr>
   		<tr>
     		<th scope="row">불포함사항</th>
-    		<td><textarea rows="4" name="exclueed" ></textarea></td>
+    		<td><textarea rows="4" name="excluded" ></textarea></td>
   		</tr>
   		<tr>
     		<th scope="row">준비사항</th>
