@@ -24,6 +24,10 @@
         	<?php	echo "$name";	?> 님
             환영합니다!
         </p>
+        <form action="login.php">
+        	<input type="hidden" name="out" value="out" />
+        	<input type="submit" value="로그아웃"/>
+        </form>
     </div>
     </div>
     <script> 

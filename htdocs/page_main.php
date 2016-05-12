@@ -21,6 +21,10 @@
         <br /><br /><br /><br /><br /><br />
         <form action="page_create_program.php" method="get">
         	<input type="submit" value="프로그램 등록하기" onClick="return createProgram()"/>
+        </form>        
+        <br /><br /><br /><br /><br /><br />
+        <form action="page_search.php" method="get">
+        	<input type="submit" value="프로그램 검색" onClick="return createProgram()"/>
         </form>
 	</div>
     <script>

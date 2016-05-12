@@ -1,5 +1,8 @@
 <?php
 	session_start();
+	$out = $_GET['out'];
+	if ($out != NULL)
+		session_destroy();
 	
 	if ($_SESSION['email'] != NULL) echo "<script>document.location.href='logined.php'</script>";
 	
