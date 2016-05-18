@@ -135,7 +135,7 @@
                 <td> <?=$price?></td>
                 <td> <?=$theme?></td>
                 <td> <?=$duration?></td>
-                <td> <button>선택</button></td>
+                <td> <a href="detail.php?code=<?=$code?>"><button>선택</button></a></td>
             </tr>
             <? } ?>
         </table>
