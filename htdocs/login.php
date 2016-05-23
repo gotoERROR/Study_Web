@@ -84,7 +84,7 @@
         		<td colspan="3" align="center">
                 	<input type="hidden" value="" id="sign" name="sign" />
                 	<input type="submit" value="로그인" onClick="signIn()" />
-                    <input type="submit" value="회원가입" onClick="signUp()" />
+                    <input type="submit" value="회원가입" onClick="return signUp()" />
                 </td>
       		</tr>
     	</table>

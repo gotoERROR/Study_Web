@@ -17,18 +17,22 @@
 
 <body>
 	<div>
-		<h1 align="center">Main Page</h1>
-        <br /><br /><br /><br /><br /><br />
-        <form action="page_create_program.php" method="get">
-        	<input type="submit" value="프로그램 등록하기" onClick="return createProgram()"/>
-        </form>        
+		<h1 align="center">Main Page</h1>    
         <br /><br /><br /><br /><br /><br />
         <form action="page_search.php" method="get">
-        	<input type="submit" value="프로그램 검색" onClick="return createProgram()"/>
+        	<input type="submit" value="프로그램 검색" onClick="return userChk()"/>
+        </form>
+        <br /><br /><br /><br />
+        <form action="page_create_program.php" method="get">
+        	<input type="submit" value="프로그램 등록하기" onClick="return userChk()"/>
+        </form>    
+        <br /><br /><br /><br />
+        <form action="" method="get">
+        	<input type="submit" value="회원정보" onClick="return userChk()"/>
         </form>
 	</div>
     <script>
-		function createProgram(){
+		function userChk(){
 			var email = "<? echo $email?>";
 			if (email == "") {
 				alert("로그인 후 이용가능");

@@ -139,7 +139,8 @@
             </tr>
             <? } ?>
         </table>
-        <? } ?>
+        <? } ?>        
+    	<a href="page_main.php"><button>돌아가기</button></a>
     </div>    
 </body>
 </html>
