@@ -75,13 +75,18 @@
 	
 ?>
 <?
+$count;
+for ($count=1; $count<=4; $count++)
+{
+	$filename = "fileToUpload" . $count;
 	$target_dir = "uploads/";
-	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+	$target_file = $target_dir . basename($_FILES[$filename]["name"]);
 	$uploadOk = 1;
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 	// Check if image file is a actual image or fake image
 	if(isset($_POST["submit"])) {
-	    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+	    $check = getimagesize($_FILES[$filename]["tmp_name"]);
+echo "<script> alert('$check');</script>";
 	    if($check !== false) {
 	        echo "File is an image - " . $check["mime"] . ".";
 	        $uploadOk = 1;
@@ -96,27 +101,28 @@
 	    $uploadOk = 0;
 	}
 	// Check file size
-	if ($_FILES["fileToUpload"]["size"] > 500000) {
+	else if ($_FILES[$filename]["size"] > 500000) {
 	    echo "Sorry, your file is too large.";
 	    $uploadOk = 0;
 	}
 	// Allow certain file formats
-	if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+	else if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 	&& $imageFileType != "gif" ) {
 	    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
 	    $uploadOk = 0;
 	}
 	// Check if $uploadOk is set to 0 by an error
-	if ($uploadOk == 0) {
+	else if ($uploadOk == 0) {
 	    echo "Sorry, your file was not uploaded.";
 	// if everything is ok, try to upload file
 	} else {
-	    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-	        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+	    if (move_uploaded_file($_FILES[$filename]["tmp_name"], $target_file)) {
+	        echo "The file ". basename( $_FILES[$filename]["name"]). " has been uploaded.";
 	    } else {
 	        echo "Sorry, there was an error uploading your file.";
 	    }
 	}
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -299,8 +305,20 @@
     		<td><input type="text" name="evaluationno" /></td>
   		</tr>
   		<tr>
-    		<th scope="row">이미지 파일</th>
-    		<td><input type="file" name="fileToUpload" id="fileToUpload" /></td>
+    		<th scope="row">이미지 파일1</th>
+    		<td><input type="file" name="fileToUpload1" id="fileToUpload1" /></td>
+  		</tr>
+  		<tr>
+    		<th scope="row">이미지 파일2</th>
+    		<td><input type="file" name="fileToUpload2" id="fileToUpload2" /></td>
+  		</tr>
+  		<tr>
+    		<th scope="row">이미지 파일3</th>
+    		<td><input type="file" name="fileToUpload3" id="fileToUpload3" /></td>
+  		</tr>
+  		<tr>
+    		<th scope="row">이미지 파일4</th>
+    		<td><input type="file" name="fileToUpload4" id="fileToUpload4" /></td>
   		</tr>
         <tr>
         	<td colspan="2">
