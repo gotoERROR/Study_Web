@@ -1,13 +1,35 @@
 <? session_start();
-	$code = intval($_GET['code']);
-	
+
 	include "./config/dbconn.php";	
 	mysql_query("set names utf8");
 	
-	$sql = " select * from program where pr_code  = $code ";
-	$result = mysql_query($sql);
-	$row = mysql_fetch_object($result);
-	//$filename = $row->pr_explanation;
+	//프로그램 코드
+	$code = intval($_GET['code']);
+	//프로그램 신청 인원
+	$subscribe = intval($_GET['subscribe']);	
+	//프로그램 신청시
+	if ($subscribe != NULL){
+		$email = $_SESSION['email'];
+		
+		//프로그램 신청 입력
+		$sql = " INSERT INTO subscribe (pr_code, m_email, count) ";
+		$sql .= " VALUES ($code, '$email', $subscribe) ";
+		$result = mysql_query($sql);
+		echo "<script> alert('신청완료!') </script>";
+		
+		//프로그램 입력후 총 신청인원 갱신
+		$sql = " SELECT SUM(count) as total FROM subscribe ";
+		$sql .= " WHERE pr_code = $code ";
+		$result = mysql_query($sql);
+		$rows = mysql_fetch_object($result);
+		$total = intval($rows->total);
+		//프로그램 테이블에 적용
+		$sql = " UPDATE program SET pr_appliedno = $total ";
+		$sql .= " WHERE pr_code = $code ";
+		$result = mysql_query($sql);		
+	}
+
+	
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -18,11 +40,35 @@
 </head>
 
 <body>
-	<div>
-    <table width="1000" border="1" cellpadding="0">
+	<div>       
+    <?	
+		//코드번호에 해당하는 경로로 이미지 불러오기
+		$sql = " SELECT path FROM image ";
+		$sql .= " WHERE pr_code = $code ";		
+		$result = mysql_query($sql);
+	?>
+    <table width="800" border="1" cellpadding="0">
+	<?	//이미지 수 만큼 반복
+		if (mysql_num_rows($result) > 0) {
+			while ($rows = mysql_fetch_object($result)){ ?>
+    	<tr>
+        	<td colspan="2">
+    			<? $image = $rows->path; ?>
+            	<img src="<?=$image?>" width="800px" />
+            </td>	
+        </tr>			
+		<? } ?>
+	<? } ?> 
+    <?
+		// 프로그램 정보 불러오기
+		$sql = " select * from program where pr_code  = $code ";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_object($result);
+		//$filename = $row->pr_explanation;		
+	?>    
   		<tr>
     		<th scope="row" width="200px">프로그램 번호</th>
-    		<td width="500px"><?=$pr_code?></td>
+    		<td width="500px"><?=$row->pr_code?></td>
   		</tr>
   		<tr>
     		<th scope="row">프로그램 이름</th>
@@ -175,6 +221,16 @@
   		<tr>
     		<th scope="row">고객평가 총인원수</th>
     		<td><?=$row->pr_evaluationno?></td>
+  		</tr>
+  		<tr>
+    		<th scope="row">신청하기</th>
+    		<td>
+            	<form action="detail.php" method="get">                	
+                	<input type="hidden" name="code" value="<?=$code?>" />
+                	<input type="text" name="subscribe" />명
+                	<input type="submit" value="신청" />
+                </form>
+            </td>
   		</tr>
 	</table>
     <button onClick="history.back()">돌아가기</button>

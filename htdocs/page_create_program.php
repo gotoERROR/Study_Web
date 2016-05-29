@@ -1,8 +1,8 @@
 <?
 	session_start();
 	
-	$pid = $_POST['pid'];
-	
+	$pid = intval($_POST['pid']);
+	//넘겨받은 프로그램 번호가 있으면 프로그램 입력	
 	if ($pid != NULL) {
 		$pname = $_POST['pname'];
 		$emergency = $_POST['emergency'];
@@ -52,7 +52,7 @@
 					pr_itinery, pr_characteristics, pr_option, pr_included, pr_excluded,
 					pr_preparation, pr_notice, pr_evaluationvalue, pr_evaluationno";
 					
-		$value = "'$pid','$pname','$emergency','$language','$enrolldatetime',
+		$value = "$pid,'$pname','$emergency','$language','$enrolldatetime',
 					'$categorygroup','$categoryconcept','$region','$country','$province',
 					'$city','$town','$air','$hotel','$vehicle',
 					'$durationtype','$price','$price2','$price3','$currency',
@@ -63,63 +63,65 @@
 		
 		$sql = "insert into program ( ". $insert ." )";
 		$sql .= " values ( " . $value . " )";
-		
-		
+				
 		include "./config/dbconn.php";	
 		mysql_query("set names utf8");
 		
-		$result = mysql_query($sql);
-		
+		$result = mysql_query($sql);		
 		echo "<script> alert('프로그램 입력 완료!'); </script>";
 	}
 	
 ?>
 <?
+//이미지 출력
 $count;
 for ($count=1; $count<=4; $count++)
-{
-	$filename = "fileToUpload" . $count;
+{	
+	$filename = "fileToUpload" . $count;	
 	$target_dir = "uploads/";
 	$target_file = $target_dir . basename($_FILES[$filename]["name"]);
 	$uploadOk = 1;
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+	
 	// Check if image file is a actual image or fake image
 	if(isset($_POST["submit"])) {
-	    $check = getimagesize($_FILES[$filename]["tmp_name"]);
-echo "<script> alert('$check');</script>";
+	    //$check = getimagesize($_FILES[$filename]["tmp_name"]);
 	    if($check !== false) {
-	        echo "File is an image - " . $check["mime"] . ".";
+	        //echo "File is an image - " . $check["mime"] . ".";
 	        $uploadOk = 1;
 	    } else {
-	        echo "File is not an image.";
+	        //echo "File is not an image.";
 	        $uploadOk = 0;
 	    }
-	}
+	}	
 	// Check if file already exists
 	if (file_exists($target_file)) {
-	    echo "Sorry, file already exists.";
+	    //echo "Sorry, file already exists.";
 	    $uploadOk = 0;
 	}
 	// Check file size
 	else if ($_FILES[$filename]["size"] > 500000) {
-	    echo "Sorry, your file is too large.";
+	    //echo "Sorry, your file is too large.";
 	    $uploadOk = 0;
 	}
 	// Allow certain file formats
 	else if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 	&& $imageFileType != "gif" ) {
-	    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+	    //echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
 	    $uploadOk = 0;
 	}
 	// Check if $uploadOk is set to 0 by an error
 	else if ($uploadOk == 0) {
-	    echo "Sorry, your file was not uploaded.";
+	    //echo "Sorry, your file was not uploaded.";
 	// if everything is ok, try to upload file
 	} else {
 	    if (move_uploaded_file($_FILES[$filename]["tmp_name"], $target_file)) {
-	        echo "The file ". basename( $_FILES[$filename]["name"]). " has been uploaded.";
+	        //echo "The file ". basename( $_FILES[$filename]["name"]). " has been uploaded.";	
+			$sql = "INSERT INTO image (pr_code, path ) ";
+			$sql .= " VALUES ($pid ,'$target_file') ";			
+			$result = mysql_query($sql);			
 	    } else {
-	        echo "Sorry, there was an error uploading your file.";
+	        //echo "Sorry, there was an error uploading your file.";
 	    }
 	}
 }
@@ -166,7 +168,7 @@ echo "<script> alert('$check');</script>";
   		</tr>
   		<tr>
     		<th scope="row">등록일시</th>
-    		<td><input type="text" name="enrolldatetime" /></td>
+    		<td><input type="date" name="enrolldatetime" id="datePicker" /></td>
   		</tr>
   		<tr>
     		<th scope="row">여행 카테고리 대분류</th>
@@ -331,5 +333,8 @@ echo "<script> alert('$check');</script>";
     </form>    
     <a href="page_main.php"><button>돌아가기</button></a>
 	</div>
+    <script>
+		document.getElementById('datePicker').valueAsDate = new Date();
+	</script>
 </body>
 </html>

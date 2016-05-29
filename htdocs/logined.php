@@ -1,8 +1,20 @@
 <?php
-	session_start();
+	session_start();	
+	include "./config/dbconn.php";	
+	
 	$name = $_SESSION['name'];
 	$email = $_SESSION['email'];
 	$pw = $_SESSION['pw'];
+	
+	//가이드 확인
+	$sql = " SELECT * FROM guide ";
+	$sql .= " WHERE g_email = '$email' ";	
+	$result = mysql_query($sql);	
+	if (mysql_num_rows($result) > 0) {
+		$rows = mysql_fetch_object($result);
+		$_SESSION['guide_no'] = $rows->g_no;
+	}
+	
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -23,6 +35,16 @@
     	<p>
         	<?php	echo "$name";	?> 님
             환영합니다!
+            <br/>
+            <?
+				if ($_SESSION['guide_no'] == NULL){ 
+					echo "일반회원";
+				}
+				else if ( $_SESSION['guide_no'] != NULL){ 
+					echo "가이드번호 : ";
+					echo $_SESSION['guide_no'];
+				}
+			?>
         </p>
         <form action="login.php">
         	<input type="hidden" name="out" value="out" />
@@ -30,7 +52,8 @@
         </form>
     </div>
     </div>
-    <script> 
+    <script> 		
+		parent.page.location.reload();
   	</script>
 </body>
 </html>
