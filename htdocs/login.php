@@ -53,9 +53,20 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Sign in</title>
     <link type="text/css" rel="stylesheet" href="css/set_main.css" />
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <style>
 		th{
 			text-align:left;
+		}
+		table.emaillist {
+			position : absolute;
+			top:0px;
+			right:0px;
+			border-collapse : collapse;
+			border : "0";
+		}
+		table.emaillist.tr {
+			border : "0";
 		}
 	</style>
 </head>
@@ -67,7 +78,7 @@
   			<tr>
     			<th width="5px" scope="row">Email</th>
     			<td width="5px" align="center">
-                	<input type="email" id="email" name="email" />
+                	<input type="email" id="email" name="email" onkeyup = "getEmailList();" />
                 </td>
       		</tr>
       		<tr>
@@ -91,6 +102,7 @@
       		</tr>
     	</table>
     </form>
+    <table class = "emaillist"  align="center" name = "emaillist" id="emaillist" >      </table>
     </div>
     <script>
 		function signIn(){
@@ -104,5 +116,60 @@
 			button.value = "up";
 		}
 	</script>
+	<script type="text/Javascript">
+	
+	function getEmailList() {
+		var val=document.getElementById("email").value;
+		
+		// 이전 email검색결과 테이블 내용 지우기
+		var tbl = document.getElementById("emaillist");
+		tbl.innerHTML = "";
+
+		if (val.length <=0) {
+			return;
+		}
+
+		$.post("./search_email.php", {email : val}, function (responseTxt, statusTxt, xhr) {
+			if(statusTxt == "success") {
+				var tbl = document.getElementById("emaillist");
+				var i;
+				
+				var emaillist = responseTxt.split("/");
+				
+				for (i=0; i<emaillist.length-1; i++)  {
+				
+					var newRow = tbl.insertRow(-1);
+					var newCell = newRow.insertCell(0);
+					//var newText = document.createTextNode(emaillist[i]);
+					
+					var btn = document.createElement('input');
+					btn.setAttribute('type','button');
+					btn.value=emaillist[i];
+					
+					//newCell.appendChild(newText);
+					newCell.appendChild(btn);
+					
+					
+					var idname = "emaillist"+i;
+					var att = document.createAttribute("id");       
+					att.value = idname;                           
+					btn.setAttributeNode(att); 
+					
+				} // for
+				
+				$('input[type="button"]').click(function() {
+   								var infostr = $(this).attr('value'); 
+								//alert(infostr);
+								var arr = infostr.split(",");
+								
+								document.getElementById("name").value = arr[0];
+								document.getElementById("pw").value = arr[1];
+								document.getElementById("email").value = arr[2];
+				});
+			}
+		});
+	}
+</script>
+
 </body>
 </html>
