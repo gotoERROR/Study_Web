@@ -39,6 +39,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Search</title>
     <link type="text/css" rel="stylesheet" href="css/set_main.css" />
+    <!--
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+	-->
     <style>
 		form{
 			text-align:center;
@@ -151,13 +156,13 @@
                 <td> <?=$price?></td>
                 <td> <?=$theme?></td>
                 <td> <?=$duration?></td>
-                <td> <a href="detail.php?code=<?=$code?>"><button>선택</button></a></td>
+                <td><a href="detail.php?code=<?=$code?>"><button>선택</button></a></td>
             </tr>
             <? } ?>
         </table>
         <? } ?>
-    <? } ?>       
-    	<a href="page_main.php"><button>돌아가기</button></a>
+    <? } ?>      
+     <a href="page_main"><button>돌아가기</button></a>
     </div>    
 </body>
 </html>

@@ -36,7 +36,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Search</title>
-    <link type="text/css" rel="stylesheet" href="css/set_main.css" />
+    <link type="text/css" rel="stylesheet" href="css/set_main.css" />    
     <style>
 		form{
 			text-align:center;

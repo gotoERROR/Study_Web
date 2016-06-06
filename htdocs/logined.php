@@ -14,6 +14,14 @@
 		$rows = mysql_fetch_object($result);
 		$_SESSION['guide_no'] = $rows->g_no;
 	}
+	//관리자 확인	
+	$sql = " SELECT * FROM admin ";
+	$sql .= " WHERE admin_id = '$email' ";	
+	$result = mysql_query($sql);	
+	if (mysql_num_rows($result) > 0) {
+		$rows = mysql_fetch_object($result);
+		$_SESSION['admin'] = "admin_mode";
+	}
 	
 ?>
 <!DOCTYPE HTML>
@@ -37,7 +45,10 @@
             환영합니다!
             <br/>
             <?
-				if ($_SESSION['guide_no'] == NULL){ 
+				if ($_SESSION['admin'] == "admin_mode"){
+					echo "관리자 모드";
+				}
+				else if ($_SESSION['guide_no'] == NULL){ 
 					echo "일반회원";
 				}
 				else if ( $_SESSION['guide_no'] != NULL){ 

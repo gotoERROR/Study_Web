@@ -37,6 +37,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title><?=$code?> detail</title>
     <link type="text/css" rel="stylesheet" href="css/set_main.css" />
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
 </head>
 
 <body>
@@ -168,7 +169,15 @@
  		</tr>
   		<tr>
     		<th scope="row">미팅장소 구글맵 좌표</th>
-    		<td><?=$row->pr_meetingpointmap?></td>
+    		<td><?=$row->pr_meetingpointmap?>            	
+				<div id="map" style="width:400px;height:400px">My map will go here</div>
+                <script>
+					var mapCanvas = document.getElementById("map");
+					var mapOptions = {center: new google.maps.LatLng(51.5, -0.2), zoom: 10}
+					var map = new google.maps.Map(mapCanvas, mapOptions);
+				</script>
+                
+            </td>
   		</tr>
   		<tr>
     		<th scope="row">해산위치</th>
